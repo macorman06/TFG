@@ -25,10 +25,11 @@
 
 /* Ajustes globales del layout */
 html, body, #root {
-  height: 100%;
+  height: 100vh; /* La página ocupará toda la altura de la pantalla */
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden; /* Evita el scroll en toda la página */
   display: flex;
   flex-direction: column;
 }
@@ -45,6 +46,7 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   flex: 1;
+  overflow-y: auto;
 }
 
 /* ============================== */
@@ -153,8 +155,8 @@ button:focus-visible {
 /* Fondo en el body */
 .body-content {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 30px;
   background-image: url("/background.jpg"); /* La imagen está en public/ */
   background-size: cover;
@@ -170,6 +172,7 @@ button:focus-visible {
   justify-content: space-around;
   margin-top: 20px;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 /* Estilos de las tarjetas */
@@ -189,9 +192,9 @@ button:focus-visible {
 
 /* Hover igual para todas las tarjetas */
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
   cursor: pointer;
-  background: rgb(220, 220, 220);
+  background: rgb(249, 229, 229);
 }
 
 /* Iconos dentro de las tarjetas */
@@ -281,12 +284,6 @@ p {
   border: 1px solid rgba(27, 27, 27, 0.2);
   transition: transform 0.2s ease-in-out;
   min-width: 280px; /* Evita que se vuelvan demasiado estrechas */
-}
-
-/* Hover para todas las columnas */
-.column:hover {
-  transform: translateY(-5px);
-  background: rgb(220, 220, 220);
 }
 
 /* Encabezados dentro de las columnas */
