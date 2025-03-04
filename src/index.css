@@ -1,0 +1,300 @@
+/* ============================== */
+/* 🔹 FUENTES Y CONFIGURACIÓN GLOBAL */
+/* ============================== */
+
+/* Importar Montserrat desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+
+:root {
+  /* Tipografía y renderizado */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Colores base */
+  color: rgba(27, 27, 27, 0.87);
+  background-color: #eeeeee;
+}
+
+/* ============================== */
+/* 🔹 ESTILOS GENERALES */
+/* ============================== */
+
+/* Ajustes globales del layout */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Mantiene el Footer en la parte inferior */
+  min-height: 100vh;
+}
+
+/* El contenido principal se expande para empujar el Footer hacia abajo */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* ============================== */
+/* 🔹 ENLACES */
+/* ============================== */
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+/* ============================== */
+/* 🔹 BOTONES */
+/* ============================== */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 8px;
+  font-size: 1em;
+  font-weight: 550;
+  font-family: inherit;
+  background-color: #e7e7e7;
+  color: rgb(49, 48, 48);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #ce6161;
+  transition: background-color 0.25s ease-in-out;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Botón de iconos en el Header */
+.icon-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  font-size: 18px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.icon-button:hover {
+  transform: scale(1.1);
+}
+
+
+/* ------------------------------------------------------- Header ------------------------------------------------------*/
+
+
+/* Estilos del Header */
+.header {
+  padding: 10px 25px;
+  background: #be1515;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo en el Header */
+.header-logo {
+  height: 40px;
+  width: auto;
+  margin-left: 15px;
+}
+
+/* El título de HARSA es clickeable */
+.header h1 {
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 1.7rem;
+}
+/* ------------------------------------------------------- Footer ------------------------------------------------------*/
+
+/* Estilos del Footer */
+.footer {
+  max-height: 40px;
+  padding: 10px;
+  background: #be1515;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer p {
+  color: white;
+}
+
+/* -------------------------------------------------- Estilos Generales -------------------------------------------------*/
+
+/* Fondo en el body */
+.body-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  background-image: url("/background.jpg"); /* La imagen está en public/ */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ------------------------------------------------- Componente - Cards ------------------------------------------------*/
+
+/* Contenedor de las tarjetas */
+.cards-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+/* Estilos de las tarjetas */
+.card {
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgba(27, 27, 27, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Hover igual para todas las tarjetas */
+.card:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+  background: rgb(220, 220, 220);
+}
+
+/* Iconos dentro de las tarjetas */
+.card-icon {
+  font-size: 24px;
+  color: rgba(27, 27, 27, 0.87);
+}
+
+/* -------------------------------------------------- Estilos Generales -------------------------------------------------*/
+
+h1 {
+  font-size: 1.5em;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+h2 {
+  margin: 0;
+  color: rgba(27, 27, 27, 0.87);
+}
+
+h3 {
+  margin: 0;
+  color: rgba(27, 27, 27, 0.87);
+}
+
+p {
+  margin: 10px 0px;
+  color: rgba(27, 27, 27, 0.87);
+}
+
+.icon-inline {
+  font-size: 24px;
+  color: rgba(27, 27, 27, 0.87);
+}
+/* ------------------------------------------------ Pantalla de Bienvenida ----------------------------------------------*/
+.welcome-container h3 {
+  padding-top: 20px;
+  color: rgb(49, 49, 49);
+}
+
+.welcome-container .cards-container h3 {
+  color: rgb(42, 42, 42);
+}
+
+.welcome-container p {
+  margin-bottom: 10px;
+}
+
+/* --------------------------------------------------- Welcome Content -------------------------------------------------*/
+
+/* Contenedor principal de Explain */
+.welcome-container {
+  text-align: justify;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------- Explain Content -------------------------------------------------*/
+
+/* Contenedor principal de Explain */
+.explain-container {
+  text-align: justify;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Contenedor de 3 columnas */
+.three-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap; /* Permite adaptabilidad en pantallas pequeñas */
+}
+
+/* Estilos de cada columna */
+.column {
+  flex: 1;
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  border: 1px solid rgba(27, 27, 27, 0.2);
+  transition: transform 0.2s ease-in-out;
+  min-width: 280px; /* Evita que se vuelvan demasiado estrechas */
+}
+
+/* Hover para todas las columnas */
+.column:hover {
+  transform: translateY(-5px);
+  background: rgb(220, 220, 220);
+}
+
+/* Encabezados dentro de las columnas */
+.column h3 {
+  color: rgb(42, 42, 42);
+}
+
+/* Párrafos dentro de las columnas */
+.column p {
+  color: rgba(27, 27, 27, 0.87);
+}
