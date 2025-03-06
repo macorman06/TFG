@@ -4,6 +4,7 @@
 
 /* Importar Montserrat desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
 :root {
   /* Tipografía y renderizado */
@@ -25,10 +26,11 @@
 
 /* Ajustes globales del layout */
 html, body, #root {
-  height: 100%;
+  height: 100vh; /* La página ocupará toda la altura de la pantalla */
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden; /* Evita el scroll en toda la página */
   display: flex;
   flex-direction: column;
 }
@@ -45,6 +47,17 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   flex: 1;
+  overflow-y: auto;
+}
+
+.gantt-container {
+  height: 90%;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f6f4f4;
+  overflow-y: auto;
 }
 
 /* ============================== */
@@ -101,6 +114,35 @@ button:focus-visible {
 }
 
 
+.banner {
+  background: linear-gradient(to right, #dd9f9f, #ffd0d0); /* Rojo degradado atractivo */
+  color: white; /* Texto en blanco para contraste */
+  text-align: center;
+  font-family: 'Playfair Display', Italic;
+  font-weight: 700;
+  font-size: 2rem;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Hacerlo responsive */
+@media (max-width: 768px) {
+  .banner {
+    font-size: 1.5em;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    font-size: 1.2em;
+    padding: 10px;
+  }
+}
+
+
 /* ------------------------------------------------------- Header ------------------------------------------------------*/
 
 
@@ -153,9 +195,9 @@ button:focus-visible {
 /* Fondo en el body */
 .body-content {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0px 30px;
   background-image: url("/background.jpg"); /* La imagen está en public/ */
   background-size: cover;
   background-position: center;
@@ -170,6 +212,7 @@ button:focus-visible {
   justify-content: space-around;
   margin-top: 20px;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 /* Estilos de las tarjetas */
@@ -189,9 +232,9 @@ button:focus-visible {
 
 /* Hover igual para todas las tarjetas */
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
   cursor: pointer;
-  background: rgb(220, 220, 220);
+  background: rgb(249, 229, 229);
 }
 
 /* Iconos dentro de las tarjetas */
@@ -283,12 +326,6 @@ p {
   min-width: 280px; /* Evita que se vuelvan demasiado estrechas */
 }
 
-/* Hover para todas las columnas */
-.column:hover {
-  transform: translateY(-5px);
-  background: rgb(220, 220, 220);
-}
-
 /* Encabezados dentro de las columnas */
 .column h3 {
   color: rgb(42, 42, 42);
@@ -298,3 +335,203 @@ p {
 .column p {
   color: rgba(27, 27, 27, 0.87);
 }
+
+/* -------------------------------- Dialog Optimizing Days Selector -------------------------- */
+/* Fondo oscuro al abrir el popup */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* Oscurece el fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Botón para cerrar el popup */
+.close-button {
+  background: #be1515;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Estilos del fondo oscurecido */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Cuadro de diálogo */
+.dialog-box-upload {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 8px;
+  width: 700px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  position: relative;
+}
+
+.dialog-box-selector-days {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 8px;
+  width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  position: relative;
+}
+
+.dialog-task-fields-types {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.upload-data-pages {
+  display: flex;
+  align-items: flex-end;
+  padding: 0px !important;
+}
+
+.card-subtitle {
+  display: flex;
+  align-items: flex-start;
+}
+
+
+/* Botón de cerrar */
+.close-icon {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #555;
+  transition: background 0.3s ease-in-out;
+  width: 30px;
+  height: 30px;
+  padding: 0px;
+}
+
+.close-icon:hover {
+  background-color: #e8e8e8;
+  transition: background 0.3s ease-in-out;
+}
+
+
+.upload-button:hover, .confirm-button:hover {
+  background-color: #e66363;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Caja de subida de archivos */
+.upload-box {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  margin-top: 15px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  color: #444444;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+
+.upload-box:hover {
+  background: #f7f7f7;
+}
+
+/* Botón de subir archivo */
+.upload-button, .confirm-button {
+  margin-top: 15px;
+  background: #be1515;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+
+}
+
+.dialog-footer-button {
+  display: flex;
+  justify-content: flex-end; /* Alinea el botón a la derecha */
+}
+
+/* Contenedor del selector de días */
+.selected-days {
+  margin-top: 15px;
+  padding: 10px;
+  background: #f7f7f7;
+  border-radius: 5px;
+}
+
+
+/* Cuadro de diálogo */
+.dialog-box-selector-days {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 8px;
+  width: 450px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  position: relative;
+}
+
+/* Botón de cerrar */
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-icon:hover {
+  color: #be1515;
+}
+
+/* Contenedor del calendario centrado */
+.datepicker-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+/* Contenedor del botón */
+.dialog-footer-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Deshabilitar botón cuando no hay selección */
+.confirm-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
