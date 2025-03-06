@@ -1,8 +1,14 @@
-import React from "react";
+import React,{ useState } from "react";
 import { FaUpload, FaCog, FaChartBar, FaBook, FaClipboardList, FaLightbulb, FaInfo, FaHammer } from "react-icons/fa";
 import Card from "./Card";
 
+import OptiDaysSelector from "./dialogs/OptiDaysSelector"; 
+import LoadData from "./dialogs/LoadData"; 
+
+
 function Welcome({ setView }) {
+  const [showPopup, setShowPopup] = useState(null); // Estado para controlar la visibilidad del popup
+
   return (
     <div className="welcome-container">
       <h2>Bienvenido a HARSA</h2>
@@ -26,10 +32,40 @@ function Welcome({ setView }) {
       {/* Sección 1: Uso de la Herramienta */}
       <h3><FaHammer className="icon-inline" /> Uso de la herramienta</h3>
       <div className="cards-container">
-        <Card icon={FaUpload} title="Cargar Datos" description="Importa los horarios de vuelos y restricciones para optimizar la planificación." />
-        <Card icon={FaCog} title="Optimizar Planificación" description="Ejecuta el modelo matemático en la API de Python y genera soluciones eficientes." />
-        <Card icon={FaChartBar} title="Comparar Soluciones" description="Visualiza y analiza diferentes escenarios de planificación para elegir la mejor opción." />
+        <Card  
+          icon={FaUpload} 
+          title="Cargar Datos" 
+          description="Importa los horarios de vuelos y restricciones para optimizar la planificación."
+          onClick={() => setShowPopup("loadData")}
+        />
+        <Card 
+          icon={FaCog} 
+          title="Optimizar Planificación" 
+          description="Ejecuta el modelo matemático en la API de Python y genera soluciones eficientes." 
+          onClick={() => setShowPopup("optimize")}
+        />
+        <Card 
+          icon={FaChartBar} 
+          title="Comparar Soluciones" 
+          description="Visualiza y analiza diferentes escenarios de planificación para elegir la mejor opción." 
+        />
       </div>
+
+      {showPopup === "loadData" && (
+        <div className="overlay">
+          <div className="popup">
+            <LoadData onClose={() => setShowPopup(null)} />
+          </div>
+        </div>
+      )}
+
+      {showPopup === "optimize" && (
+        <div className="overlay">
+          <div className="popup">
+            <OptiDaysSelector onClose={() => setShowPopup(null)} />
+          </div>
+        </div>
+      )}
 
       {/* Sección 2: Información sobre el TFG */}
       <h3><FaInfo className="icon-inline" />nformación sobre el TFG</h3>
