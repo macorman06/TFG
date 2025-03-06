@@ -4,6 +4,7 @@
 
 /* Importar Montserrat desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
 :root {
   /* Tipografía y renderizado */
@@ -113,6 +114,35 @@ button:focus-visible {
 }
 
 
+.banner {
+  background: linear-gradient(to right, #dd9f9f, #ffd0d0); /* Rojo degradado atractivo */
+  color: white; /* Texto en blanco para contraste */
+  text-align: center;
+  font-family: 'Playfair Display', Italic;
+  font-weight: 700;
+  font-size: 2rem;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Hacerlo responsive */
+@media (max-width: 768px) {
+  .banner {
+    font-size: 1.5em;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    font-size: 1.2em;
+    padding: 10px;
+  }
+}
+
+
 /* ------------------------------------------------------- Header ------------------------------------------------------*/
 
 
@@ -167,7 +197,7 @@ button:focus-visible {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 30px;
+  padding: 0px 30px;
   background-image: url("/background.jpg"); /* La imagen está en public/ */
   background-size: cover;
   background-position: center;
