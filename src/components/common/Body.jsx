@@ -1,10 +1,10 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Welcome from "./Welcome";
-import Tool from "./Tool";
-import Info from "./Info";
-import Settings from "./Settings";
-import Explain from "./Explain";
+import Welcome from "../../pages/Welcome";
+import Tool from "../../pages/Tool";
+import Info from "../../pages/Info";
+import Settings from "../../pages/Settings";
+import Explain from "../../pages/Explain";
 
 function Body({ view, setView }) {
   return (

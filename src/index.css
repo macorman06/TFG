@@ -1,10 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+@import "tailwindcss";
+
 /* ============================== */
 /* 🔹 FUENTES Y CONFIGURACIÓN GLOBAL */
 /* ============================== */
 
-/* Importar Montserrat desde Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
 :root {
   /* Tipografía y renderizado */
@@ -42,24 +43,6 @@ html, body, #root {
   min-height: 100vh;
 }
 
-/* El contenido principal se expande para empujar el Footer hacia abajo */
-.app-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow-y: auto;
-}
-
-.gantt-container {
-  height: 90%;
-  width: 100%;
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f6f4f4;
-  overflow-y: auto;
-}
-
 /* ============================== */
 /* 🔹 ENLACES */
 /* ============================== */
@@ -82,14 +65,11 @@ button {
   font-size: 1em;
   font-weight: 550;
   font-family: inherit;
-  background-color: #e7e7e7;
-  color: rgb(49, 48, 48);
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
 
 button:hover {
-  background-color: #ce6161;
   transition: background-color 0.25s ease-in-out;
 }
 
@@ -142,54 +122,6 @@ button:focus-visible {
   }
 }
 
-
-/* ------------------------------------------------------- Header ------------------------------------------------------*/
-
-
-/* Estilos del Header */
-.header {
-  padding: 10px 25px;
-  background: #be1515;
-  color: white;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Logo en el Header */
-.header-logo {
-  height: 40px;
-  width: auto;
-  margin-left: 15px;
-}
-
-/* El título de HARSA es clickeable */
-.header h1 {
-  cursor: pointer;
-  font-weight: 900;
-  font-size: 1.7rem;
-}
-/* ------------------------------------------------------- Footer ------------------------------------------------------*/
-
-/* Estilos del Footer */
-.footer {
-  max-height: 40px;
-  padding: 10px;
-  background: #be1515;
-  color: white;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer p {
-  color: white;
-}
-
 /* -------------------------------------------------- Estilos Generales -------------------------------------------------*/
 
 /* Fondo en el body */
@@ -204,67 +136,31 @@ button:focus-visible {
   background-repeat: no-repeat;
 }
 
-/* ------------------------------------------------- Componente - Cards ------------------------------------------------*/
 
-/* Contenedor de las tarjetas */
-.cards-container {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-/* Estilos de las tarjetas */
-.card {
-  background: rgb(255, 255, 255);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border: 1px solid rgba(27, 27, 27, 0.2);
-  transition: transform 0.2s ease-in-out;
-}
-
-/* Hover igual para todas las tarjetas */
-.card:hover {
-  transform: translateY(-2px);
-  cursor: pointer;
-  background: rgb(249, 229, 229);
-}
-
-/* Iconos dentro de las tarjetas */
-.card-icon {
-  font-size: 24px;
-  color: rgba(27, 27, 27, 0.87);
-}
 
 /* -------------------------------------------------- Estilos Generales -------------------------------------------------*/
+button:hover {
+  background-color: #b6b6b6 !important;
+}
 
 h1 {
-  font-size: 1.5em;
-  font-weight: 500;
-  line-height: 1.1;
+  font-size: 1.5em !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
 }
 
 h2 {
-  margin: 0;
-  color: rgba(27, 27, 27, 0.87);
+  margin: 0 !important;
+  font-size: 1.2em !important;
+  font-weight: 700 !important;
+  color: rgba(27, 27, 27, 0.87) !important;
 }
 
 h3 {
-  margin: 0;
-  color: rgba(27, 27, 27, 0.87);
+  margin: 0 !important;
+  color: rgba(27, 27, 27, 0.87) !important;
 }
 
-p {
-  margin: 10px 0px;
-  color: rgba(27, 27, 27, 0.87);
-}
 
 .icon-inline {
   font-size: 24px;
@@ -329,13 +225,54 @@ p {
 /* Encabezados dentro de las columnas */
 .column h3 {
   color: rgb(42, 42, 42);
+  font-weight: 600 !important;
+  font-size: medium;
 }
 
 /* Párrafos dentro de las columnas */
 .column p {
   color: rgba(27, 27, 27, 0.87);
+  margin: 10px 0px;
 }
 
+/* ------------------------------------------------- Componente - Cards ------------------------------------------------*/
+
+/* Contenedor de las tarjetas */
+.cards-container {
+  display: flex !important;
+  justify-content: space-around !important;
+  margin-top: 10px !important;
+  gap: 20px !important;
+  flex-wrap: wrap !important;
+}
+
+/* Estilos de las tarjetas */
+.card {
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgba(27, 27, 27, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Hover igual para todas las tarjetas */
+.card:hover {
+  transform: translateY(-2px);
+  cursor: pointer;
+  background: rgb(249, 229, 229);
+}
+
+/* Iconos dentro de las tarjetas */
+.card-icon {
+  font-size: 24px;
+  color: rgba(27, 27, 27, 0.87);
+}
 /* -------------------------------- Dialog Optimizing Days Selector -------------------------- */
 /* Fondo oscuro al abrir el popup */
 .overlay {
@@ -409,12 +346,6 @@ p {
   padding: 0px !important;
 }
 
-.card-subtitle {
-  display: flex;
-  align-items: flex-start;
-}
-
-
 /* Botón de cerrar */
 .close-icon {
   position: absolute;
@@ -432,8 +363,9 @@ p {
 }
 
 .close-icon:hover {
-  background-color: #e8e8e8;
-  transition: background 0.3s ease-in-out;
+  background-color: #e8e8e8 !important;
+  color: #555 !important;
+  transition: background 0.3s ease-in-out !important;
 }
 
 

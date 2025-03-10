@@ -1,16 +1,16 @@
 import React,{ useState } from "react";
 import { FaUpload, FaCog, FaChartBar, FaBook, FaClipboardList, FaLightbulb, FaInfo, FaHammer } from "react-icons/fa";
-import Card from "./Card";
+import Card from "../components/CardWelcome";
 
-import OptiDaysSelector from "./dialogs/OptiDaysSelector"; 
-import LoadData from "./dialogs/LoadData"; 
+import OptiDaysSelector from "../components/dialogs/OptiDaysSelector"; 
+import LoadData from "../components/dialogs/LoadData"; 
 
 
 function Welcome({ setView }) {
   const [showPopup, setShowPopup] = useState(null); // Estado para controlar la visibilidad del popup
 
   return (
-    <div className="welcome-container">
+    <div className="flex flex-col gap-3 p-[30px] max-w-[1200px] mx-auto">
       <h2>Bienvenido a HARSA</h2>
       <p className="intro-text">
         Esta web ha sido creada para presentar el <strong>Trabajo de Fin de Grado (TFG)</strong>, sirviendo como un escaparate accesible para que cualquier persona pueda 
@@ -35,7 +35,10 @@ function Welcome({ setView }) {
 
 
       {/* Sección 1: Información sobre el TFG */}
-      <h3><FaInfo className="icon-inline" />nformación sobre el TFG</h3>
+      <h3 className="flex items-center gap-2 pt-4 font-bold">
+        <FaInfo />
+        Información sobre el TFG
+      </h3>
       <div className="cards-container">
         <Card 
           icon={FaBook} 
@@ -48,7 +51,10 @@ function Welcome({ setView }) {
       </div>
 
       {/* Sección 2: Uso de la Herramienta */}
-            <h3><FaHammer className="icon-inline" /> Uso de la herramienta</h3>
+      <h3 className="flex items-center gap-2 pt-4 font-bold">
+        <FaHammer />
+        Uso de la herramienta
+      </h3>
       <div className="cards-container">
         <Card  
           icon={FaUpload} 
