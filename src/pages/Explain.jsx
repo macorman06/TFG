@@ -3,7 +3,7 @@ import React from "react";
 
 function Explain() {
   return (
-    <div className="explain-container">
+    <div className="flex flex-col gap-3 p-[30px] max-w-[1200px] mx-auto">
       <h2>¿Qué es HARSA?</h2>
       <p>
         <strong>HARSA (Herramienta de Asignación de Rotaciones Sostenibles para Aeronaves)</strong> es el nombre que recibe la herramienta desarrollada en este 
@@ -20,7 +20,10 @@ function Explain() {
       <div className="three-columns">
         {/* Motivación */}
         <div className="column">
-          <h3><FaStar className="column-icon" /> Motivación</h3>
+          <h3 className="flex items-center gap-2">
+            <FaStar />
+            Motivación
+          </h3>
           <p>
             La aviación es un sector clave en la economía global, pero también enfrenta grandes desafíos en términos de 
             <strong> eficiencia operativa y sostenibilidad</strong>. A medida que la industria busca 
@@ -51,7 +54,10 @@ function Explain() {
 
         {/* Objetivos */}
         <div className="column">
-          <h3><FaBullseye className="column-icon" /> Objetivos</h3>
+          <h3 className="flex items-center gap-2">
+            <FaBullseye />
+            Objetivos
+          </h3>
           <p>
             El desarrollo de HARSA tiene como finalidad proporcionar una <strong>herramienta efectiva preliminar </strong> 
             que permita optimizar la planificación de vuelos y mejorar la <strong>gestión operativa de las aerolíneas </strong> 
@@ -70,7 +76,10 @@ function Explain() {
 
         {/* Impacto */}
         <div className="column">
-          <h3><FaMeteor className="column-icon" /> Impacto</h3>
+          <h3 className="flex items-center gap-2">
+            <FaMeteor />
+            Impacto
+          </h3>
           <p>
             HARSA tiene un impacto significativo en la <strong>eficiencia operativa de las aerolíneas</strong>, permitiendo 
             reducir costes mediante una mejor asignación de recursos y minimizando tiempos improductivos.
