@@ -1,105 +1,537 @@
+/* ============================== */
+/* 🔹 FUENTES Y CONFIGURACIÓN GLOBAL */
+/* ============================== */
+
+/* Importar Montserrat desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  /* Tipografía y renderizado */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-@layer base {
-  :root {
-    @apply font-montserrat antialiased;
-    background-color: #eeeeee;
-  }
-
-  html, body, #root {
-    @apply h-screen w-full m-0 p-0;
-    overflow: hidden;
-  }
-
-  #root {
-    @apply flex flex-col justify-between min-h-screen;
-  }
-
-  .app-container {
-    @apply flex flex-col flex-1 overflow-y-auto;
-  }
-
-  .gantt-container {
-    @apply h-[90%] w-full mt-5 border border-gray-300 rounded-lg bg-gray-50 overflow-y-auto;
-  }
+  /* Colores base */
+  color: rgba(27, 27, 27, 0.87);
+  background-color: #eeeeee;
 }
 
-@layer components {
-  .header {
-    @apply p-2.5 px-6 bg-primary text-white text-center flex flex-row justify-between items-center;
-  }
+/* ============================== */
+/* 🔹 ESTILOS GENERALES */
+/* ============================== */
 
-  .header-logo {
-    @apply h-10 w-auto ml-4;
-  }
+/* Ajustes globales del layout */
+html, body, #root {
+  height: 100vh; /* La página ocupará toda la altura de la pantalla */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Evita el scroll en toda la página */
+  display: flex;
+  flex-direction: column;
+}
 
-  .header h1 {
-    @apply cursor-pointer font-black text-[1.7rem];
-  }
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Mantiene el Footer en la parte inferior */
+  min-height: 100vh;
+}
 
-  .footer {
-    @apply max-h-10 p-2.5 bg-primary text-white text-center flex flex-col justify-between items-center;
-  }
+/* El contenido principal se expande para empujar el Footer hacia abajo */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+}
 
-  .body-content {
-    @apply flex-1 overflow-y-auto overflow-x-hidden px-8 bg-cover bg-center bg-no-repeat;
-    background-image: url("/background.jpg");
-  }
+.gantt-container {
+  height: 90%;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f6f4f4;
+  overflow-y: auto;
+}
 
-  .cards-container {
-    @apply flex justify-around mt-5 gap-5 flex-wrap;
-  }
+/* ============================== */
+/* 🔹 ENLACES */
+/* ============================== */
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
 
-  .card {
-    @apply bg-white p-5 rounded-lg shadow-md w-[300px] text-left flex flex-col gap-2.5 border border-opacity-20 transition-transform duration-200 ease-in-out hover:translate-y-[-2px] hover:cursor-pointer hover:bg-red-50;
-  }
+/* ============================== */
+/* 🔹 BOTONES */
+/* ============================== */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 8px;
+  font-size: 1em;
+  font-weight: 550;
+  font-family: inherit;
+  background-color: #e7e7e7;
+  color: rgb(49, 48, 48);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
 
-  .card-icon {
-    @apply text-2xl text-gray-800;
-  }
+button:hover {
+  background-color: #ce6161;
+  transition: background-color 0.25s ease-in-out;
+}
 
-  .welcome-container, .explain-container {
-    @apply text-justify p-8 max-w-[1200px] mx-auto;
-  }
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
 
+/* Botón de iconos en el Header */
+.icon-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  font-size: 18px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.icon-button:hover {
+  transform: scale(1.1);
+}
+
+
+.banner {
+  background: linear-gradient(to right, #dd9f9f, #ffd0d0); /* Rojo degradado atractivo */
+  color: white; /* Texto en blanco para contraste */
+  text-align: center;
+  font-family: 'Playfair Display', Italic;
+  font-weight: 700;
+  font-size: 2rem;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Hacerlo responsive */
+@media (max-width: 768px) {
   .banner {
-    @apply bg-gradient-to-r from-secondary to-tertiary text-white text-center font-playfair font-bold text-4xl p-2.5 rounded-lg mt-4 shadow-lg;
-  }
-
-  .dialog-box-upload, .dialog-box-selector-days {
-    @apply bg-white p-8 px-10 rounded-lg shadow-lg relative;
-  }
-
-  .dialog-box-upload {
-    @apply w-[700px];
-  }
-
-  .dialog-box-selector-days {
-    @apply w-[500px];
-  }
-
-  .close-icon {
-    @apply absolute top-5 right-6 bg-transparent border-none text-lg cursor-pointer text-gray-600 transition-colors duration-300 w-8 h-8 p-0 hover:bg-gray-200;
-  }
-
-  .upload-box {
-    @apply border-2 border-dashed border-gray-300 p-5 mt-4 cursor-pointer text-center text-base text-gray-700 rounded transition-colors duration-300 hover:bg-gray-50;
-  }
-
-  .upload-button, .confirm-button {
-    @apply mt-4 bg-primary text-white border-none p-2.5 px-4 rounded cursor-pointer text-base transition-colors duration-300 hover:bg-red-400;
-  }
-
-  .dialog-footer-button {
-    @apply flex justify-end;
-  }
-
-  .confirm-button:disabled {
-    @apply bg-gray-300 cursor-not-allowed;
+    font-size: 1.5em;
+    padding: 15px;
   }
 }
+
+@media (max-width: 480px) {
+  .banner {
+    font-size: 1.2em;
+    padding: 10px;
+  }
+}
+
+
+/* ------------------------------------------------------- Header ------------------------------------------------------*/
+
+
+/* Estilos del Header */
+.header {
+  padding: 10px 25px;
+  background: #be1515;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo en el Header */
+.header-logo {
+  height: 40px;
+  width: auto;
+  margin-left: 15px;
+}
+
+/* El título de HARSA es clickeable */
+.header h1 {
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 1.7rem;
+}
+/* ------------------------------------------------------- Footer ------------------------------------------------------*/
+
+/* Estilos del Footer */
+.footer {
+  max-height: 40px;
+  padding: 10px;
+  background: #be1515;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer p {
+  color: white;
+}
+
+/* -------------------------------------------------- Estilos Generales -------------------------------------------------*/
+
+/* Fondo en el body */
+.body-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0px 30px;
+  background-image: url("/background.jpg"); /* La imagen está en public/ */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ------------------------------------------------- Componente - Cards ------------------------------------------------*/
+
+/* Contenedor de las tarjetas */
+.cards-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Estilos de las tarjetas */
+.card {
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgba(27, 27, 27, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Hover igual para todas las tarjetas */
+.card:hover {
+  transform: translateY(-2px);
+  cursor: pointer;
+  background: rgb(249, 229, 229);
+}
+
+/* Iconos dentro de las tarjetas */
+.card-icon {
+  font-size: 24px;
+  color: rgba(27, 27, 27, 0.87);
+}
+
+/* -------------------------------------------------- Estilos Generales -------------------------------------------------*/
+
+h1 {
+  font-size: 1.5em;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+h2 {
+  margin: 0;
+  color: rgba(27, 27, 27, 0.87);
+}
+
+h3 {
+  margin: 0;
+  color: rgba(27, 27, 27, 0.87);
+}
+
+p {
+  margin: 10px 0px;
+  color: rgba(27, 27, 27, 0.87);
+}
+
+.icon-inline {
+  font-size: 24px;
+  color: rgba(27, 27, 27, 0.87);
+}
+/* ------------------------------------------------ Pantalla de Bienvenida ----------------------------------------------*/
+.welcome-container h3 {
+  padding-top: 20px;
+  color: rgb(49, 49, 49);
+}
+
+.welcome-container .cards-container h3 {
+  color: rgb(42, 42, 42);
+}
+
+.welcome-container p {
+  margin-bottom: 10px;
+}
+
+/* --------------------------------------------------- Welcome Content -------------------------------------------------*/
+
+/* Contenedor principal de Explain */
+.welcome-container {
+  text-align: justify;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------- Explain Content -------------------------------------------------*/
+
+/* Contenedor principal de Explain */
+.explain-container {
+  text-align: justify;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Contenedor de 3 columnas */
+.three-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap; /* Permite adaptabilidad en pantallas pequeñas */
+}
+
+/* Estilos de cada columna */
+.column {
+  flex: 1;
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  border: 1px solid rgba(27, 27, 27, 0.2);
+  transition: transform 0.2s ease-in-out;
+  min-width: 280px; /* Evita que se vuelvan demasiado estrechas */
+}
+
+/* Encabezados dentro de las columnas */
+.column h3 {
+  color: rgb(42, 42, 42);
+}
+
+/* Párrafos dentro de las columnas */
+.column p {
+  color: rgba(27, 27, 27, 0.87);
+}
+
+/* -------------------------------- Dialog Optimizing Days Selector -------------------------- */
+/* Fondo oscuro al abrir el popup */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* Oscurece el fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Botón para cerrar el popup */
+.close-button {
+  background: #be1515;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Estilos del fondo oscurecido */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Cuadro de diálogo */
+.dialog-box-upload {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 8px;
+  width: 700px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  position: relative;
+}
+
+.dialog-box-selector-days {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 8px;
+  width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  position: relative;
+}
+
+.dialog-task-fields-types {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.upload-data-pages {
+  display: flex;
+  align-items: flex-end;
+  padding: 0px !important;
+}
+
+.card-subtitle {
+  display: flex;
+  align-items: flex-start;
+}
+
+
+/* Botón de cerrar */
+.close-icon {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #555;
+  transition: background 0.3s ease-in-out;
+  width: 30px;
+  height: 30px;
+  padding: 0px;
+}
+
+.close-icon:hover {
+  background-color: #e8e8e8;
+  transition: background 0.3s ease-in-out;
+}
+
+
+.upload-button:hover, .confirm-button:hover {
+  background-color: #e66363;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Caja de subida de archivos */
+.upload-box {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  margin-top: 15px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  color: #444444;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+
+.upload-box:hover {
+  background: #f7f7f7;
+}
+
+/* Botón de subir archivo */
+.upload-button, .confirm-button {
+  margin-top: 15px;
+  background: #be1515;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+
+}
+
+.dialog-footer-button {
+  display: flex;
+  justify-content: flex-end; /* Alinea el botón a la derecha */
+}
+
+/* Contenedor del selector de días */
+.selected-days {
+  margin-top: 15px;
+  padding: 10px;
+  background: #f7f7f7;
+  border-radius: 5px;
+}
+
+
+/* Cuadro de diálogo */
+.dialog-box-selector-days {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 8px;
+  width: 450px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  position: relative;
+}
+
+/* Botón de cerrar */
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-icon:hover {
+  color: #be1515;
+}
+
+/* Contenedor del calendario centrado */
+.datepicker-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+/* Contenedor del botón */
+.dialog-footer-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Deshabilitar botón cuando no hay selección */
+.confirm-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
