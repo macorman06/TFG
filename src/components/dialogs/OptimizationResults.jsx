@@ -42,75 +42,89 @@ const OptimizationResults = ({ results, onClose, onBack }) => {
     );
   };
 
-  return (
-    <div className="dialog-box-results">
-      <button className="close-icon" onClick={onClose}>
-        ✖
-      </button>
-      <button className="back-button" onClick={onBack}>
-        <FaArrowLeft /> Volver
-      </button>
+    return (
+        <div className="dialog-box-results">
+            <button className="close-icon" onClick={onClose}>
+                ✖
+            </button>
+            <button className="back-button" onClick={onBack}>
+                <FaArrowLeft /> Volver
+            </button>
 
-      <h2>Resultados de Optimización</h2>
-      <p>Fecha: {new Date(results.date).toLocaleDateString()}</p>
+            <h2>Resultados de Optimización</h2>
+            <p>Fecha: {new Date(results.date).toLocaleDateString()}</p>
 
-      <div className="results-container">
-        {results.plans.map((plan, index) => (
-          <CustomAccordion key={index} value={`Plan ${index + 1}`} index={index}>
-            <div className="kpi-sections">
-              <div className="kpi-section">
-                <h4>Asignación</h4>
-                <div className="kpi-grid">
-                  {Object.entries(plan.kpis.assignment).map(([key, value]) => (
-                    <div key={key} className="kpi-item">
-                      <span className="kpi-label">{key}</span>
-                      <span className="kpi-value">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="results-container">
+                {results.plans.map((plan, index) => (
+                    <CustomAccordion key={index} value={`Plan ${index + 1}`} index={index}>
+                        {plan.kpis ? (
+                            <div className="kpi-sections">
+                                <div className="kpi-section">
+                                    <h4>Asignación</h4>
+                                    <div className="kpi-grid">
+                                        {Object.entries(plan.kpis.assignment).map(([key, value]) => (
+                                            <div key={key} className="kpi-item">
+                                                <span className="kpi-label">{key}</span>
+                                                <span className="kpi-value">{value}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
 
-              <div className="kpi-section">
-                <h4>Capacidad</h4>
-                <div className="kpi-grid">
-                  {Object.entries(plan.kpis.capacity).map(([key, value]) => (
-                    <div key={key} className="kpi-item">
-                      <span className="kpi-label">{key}</span>
-                      <span className="kpi-value">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                                <div className="kpi-section">
+                                    <h4>Capacidad</h4>
+                                    <div className="kpi-grid">
+                                        {Object.entries(plan.kpis.capacity).map(([key, value]) => (
+                                            <div key={key} className="kpi-item">
+                                                <span className="kpi-label">{key}</span>
+                                                <span className="kpi-value">{value}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
 
-              <div className="kpi-section">
-                <h4>Conexiones</h4>
-                <div className="kpi-grid">
-                  {Object.entries(plan.kpis.connections).map(([key, value]) => (
-                    <div key={key} className="kpi-item">
-                      <span className="kpi-label">{key}</span>
-                      <span className="kpi-value">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                                <div className="kpi-section">
+                                    <h4>Conexiones</h4>
+                                    <div className="kpi-grid">
+                                        {Object.entries(plan.kpis.connections).map(([key, value]) => (
+                                            <div key={key} className="kpi-item">
+                                                <span className="kpi-label">{key}</span>
+                                                <span className="kpi-value">{value}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
 
-              <div className="kpi-section">
-                <h4>Rendimiento</h4>
-                <div className="kpi-grid">
-                  {Object.entries(plan.kpis.performance).map(([key, value]) => (
-                    <div key={key} className="kpi-item">
-                      <span className="kpi-label">{key}</span>
-                      <span className="kpi-value">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                                <div className="kpi-section">
+                                    <h4>Rendimiento</h4>
+                                    <div className="kpi-grid">
+                                        {Object.entries(plan.kpis.performance).map(([key, value]) => (
+                                            <div key={key} className="kpi-item">
+                                                <span className="kpi-label">{key}</span>
+                                                <span className="kpi-value">{value}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="kpi-section">
+                                <h4>Error en la optimización</h4>
+                                <p style={{ color: "red", marginTop: "10px" }}>
+                                    {plan.error || "No se pudo resolver el modelo para este plan."}
+                                </p>
+                                {plan.infeasible_file && (
+                                    <p>
+                                        Archivo generado: <code>{plan.infeasible_file}</code>
+                                    </p>
+                                )}
+                            </div>
+                        )}
+                    </CustomAccordion>
+                ))}
             </div>
-          </CustomAccordion>
-        ))}
-      </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default OptimizationResults;
