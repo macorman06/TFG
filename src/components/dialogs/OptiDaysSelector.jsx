@@ -36,7 +36,6 @@ const OptiDaysSelector = ({ onClose }) => {
       <OptimizationPlanner
         selectedDate={selectedDate}
         onClose={onClose}
-        onBack={() => setShowPlanner(false)}
       />
     );
   }
@@ -70,5 +69,3 @@ const OptiDaysSelector = ({ onClose }) => {
     </div>
   );
 };
-
-export default OptiDaysSelector;

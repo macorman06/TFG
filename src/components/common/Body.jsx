@@ -5,6 +5,7 @@ import Tool from "../../pages/Tool";
 import Info from "../../pages/Info";
 import Settings from "../../pages/Settings";
 import Explain from "../../pages/Explain";
+import Results from "../../pages/Results";
 
 function Body({ view, setView }) {
   return (
@@ -22,10 +23,9 @@ function Body({ view, setView }) {
           {view === "info" && <Info />}
           {view === "settings" && <Settings />}
           {view === "explain" && <Explain />}
+          {view === "results" && <Results />}
         </motion.div>
       </AnimatePresence>
     </main>
   );
 }
-
-export default Body;

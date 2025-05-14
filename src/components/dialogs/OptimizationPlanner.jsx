@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { FaArrowLeft, FaPlus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import OptimizationPlanCard from "./OptimizationPlanCard";
-import OptimizationResults from "./OptimizationResults";
 
-// Plantilla base para cada plan
 const createEmptyPlan = () => ({
   min_time_connection: 30,
   max_time_connection: 450,
@@ -17,10 +15,8 @@ const createEmptyPlan = () => ({
   num_tails: null
 });
 
-const OptimizationPlanner = ({ selectedDate, onClose, onBack }) => {
+const OptimizationPlanner = ({ selectedDate, onClose }) => {
   const [plans, setPlans] = useState([createEmptyPlan()]);
-  const [results, setResults] = useState(null);
-  const [isOptimizing, setIsOptimizing] = useState(false);
 
   const addPlan = () => {
     setPlans([...plans, createEmptyPlan()]);
@@ -38,7 +34,6 @@ const OptimizationPlanner = ({ selectedDate, onClose, onBack }) => {
   };
 
   const handleOptimize = async () => {
-    setIsOptimizing(true);
     const payload = {
       date: selectedDate.toISOString().split("T")[0],
       plans: plans
@@ -54,25 +49,15 @@ const OptimizationPlanner = ({ selectedDate, onClose, onBack }) => {
       });
 
       const data = await response.json();
-      setResults(data);
+      window.location.href = `/results?data=${encodeURIComponent(JSON.stringify(data))}`;
     } catch (error) {
       console.error("Error optimizing:", error);
-    } finally {
-      setIsOptimizing(false);
     }
   };
-
-  if (results) {
-    return <OptimizationResults results={results} onClose={onClose} onBack={() => setResults(null)} />;
-  }
 
   return (
     <div className="dialog-box-planner">
       <button className="close-icon" onClick={onClose}>✖</button>
-      <button className="back-button" onClick={onBack}>
-        <FaArrowLeft /> Volver
-      </button>
-
       <h2>Configurar Planes de Optimización</h2>
       <p>Fecha seleccionada: {selectedDate.toLocaleDateString()}</p>
 
@@ -96,23 +81,11 @@ const OptimizationPlanner = ({ selectedDate, onClose, onBack }) => {
         <button
           className="optimize-button"
           onClick={handleOptimize}
-          disabled={plans.length === 0 || isOptimizing}
+          disabled={plans.length === 0}
         >
-          {isOptimizing ? "Optimizando..." : "Optimizar"}
+          Optimizar
         </button>
       </div>
-
-      {isOptimizing && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-xl text-center">
-            <div className="text-2xl mb-4">🛫</div>
-            <p className="text-lg font-medium">Optimizando su planificación de vuelos...</p>
-            <p className="text-sm text-gray-500 mt-2">Este proceso puede tardar unos minutos</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
-
-export default OptimizationPlanner;
