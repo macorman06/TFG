@@ -68,6 +68,11 @@ function Welcome({ setView }) {
           description="Ejecuta el modelo matemático en la API de Python y genera soluciones eficientes." 
           onClick={() => setShowPopup("optimize")}
         />
+        <Card 
+          icon={FaChartBar} 
+          title="Comparar Soluciones" 
+          description="Visualiza y analiza diferentes escenarios de planificación para elegir la mejor opción." 
+        />
       </div>
 
       {showPopup === "loadData" && (
