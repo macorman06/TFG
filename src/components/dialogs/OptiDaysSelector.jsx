@@ -1,69 +1,70 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import OptimizationPlanner from "./OptimizationPlanner";
 
 const OptiDaysSelector = ({ onClose }) => {
-  const [selectedRange, setSelectedRange] = useState([null, null]); // ⬅ Inicialmente sin selección
-  const [startDate, endDate] = selectedRange;
-  const [selectableDays, setSelectableDays] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [availableDates, setAvailableDates] = useState([]);
+  const [showPlanner, setShowPlanner] = useState(false);
 
-  // Fechas disponibles según la imagen proporcionada
   useEffect(() => {
-    const selectableDates = [
-      "2025-01-30 00:00:00",
-      "2025-01-31 00:00:00",
-      "2025-02-01 00:00:00",
-      "2025-02-02 00:00:00",
-      "2025-02-03 00:00:00",
-      "2025-02-04 00:00:00",
-      "2025-02-05 00:00:00",
-      "2025-02-06 00:00:00",
-      "2025-02-07 00:00:00",
-      "2025-02-08 00:00:00",
-      "2025-02-09 00:00:00",
-      "2025-02-10 00:00:00",
-      "2025-02-11 00:00:00"
-    ].map(dateStr => new Date(dateStr));
-
-    setSelectableDays(selectableDates);
+    fetch("http://127.0.0.1:5000/available_dates")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.code === 0) {
+          setAvailableDates(data.dates.map(dateStr => new Date(dateStr)));
+        }
+      })
+      .catch((error) => console.error("Error fetching dates:", error));
   }, []);
 
-  // Definir el rango visible del calendario
-  const minDate = new Date(2025, 0, 30);
-  const maxDate = new Date(2025, 1, 11);
+  const isDaySelectable = (date) => {
+    return availableDates.some(
+      (d) => d.toISOString().split('T')[0] === date.toISOString().split('T')[0]
+    );
+  };
 
-  // Permitir solo los días de la lista
-  const isDaySelectable = (date) => selectableDays.some((d) => d.getTime() === date.getTime());
+  const handleDateConfirm = () => {
+    if (selectedDate) {
+      setShowPlanner(true);
+    }
+  };
+
+  if (showPlanner) {
+    return (
+      <OptimizationPlanner
+        selectedDate={selectedDate}
+        onClose={onClose}
+        onBack={() => setShowPlanner(false)}
+      />
+    );
+  }
 
   return (
     <div className="dialog-box-selector-days">
       <button className="close-icon" onClick={onClose}>✖</button>
-      <h2>Seleccionar Días de Optimización</h2>
-      <p>Solo puedes seleccionar los días habilitados en el sistema.</p>
+      <h2>Seleccionar Día de Optimización</h2>
+      <p>Selecciona un día disponible para optimizar la planificación.</p>
 
-      {/* Contenedor para centrar el DatePicker */}
       <div className="datepicker-container">
         <DatePicker
-          selectsRange
-          startDate={startDate}
-          endDate={endDate}
-          onChange={(update) => setSelectedRange(update)}
+          selected={selectedDate}
+          onChange={setSelectedDate}
           inline
-          dateFormat="dd/MM/yyyy"
           filterDate={isDaySelectable}
-          minDate={minDate}
-          maxDate={maxDate}
-          placeholderText="Selecciona un rango de fechas"
+          dateFormat="yyyy-MM-dd"
+          placeholderText="Selecciona una fecha"
         />
       </div>
 
-      {/* Botón de Confirmar (deshabilitado si no hay fechas seleccionadas) */}
       <div className="dialog-footer-button">
         <button 
           className="confirm-button"
-          disabled={!startDate || !endDate} 
+          onClick={handleDateConfirm}
+          disabled={!selectedDate}
         >
-          Confirmar selección
+          Continuar
         </button>
       </div>
     </div>
