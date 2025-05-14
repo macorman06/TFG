@@ -69,3 +69,5 @@ const OptiDaysSelector = ({ onClose }) => {
     </div>
   );
 };
+
+export default OptiDaysSelector

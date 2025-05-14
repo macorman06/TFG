@@ -89,3 +89,5 @@ const OptimizationPlanner = ({ selectedDate, onClose }) => {
     </div>
   );
 };
+
+export default OptimizationPlanner

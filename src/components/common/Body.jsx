@@ -29,3 +29,5 @@ function Body({ view, setView }) {
     </main>
   );
 }
+
+export default Body
