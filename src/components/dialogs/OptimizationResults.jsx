@@ -1,130 +1,103 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaArrowLeft } from "react-icons/fa";
 
 const OptimizationResults = ({ results, onClose, onBack }) => {
-  const [openItems, setOpenItems] = useState([]);
+  if (!results) return null;
 
-  const toggleAccordionItem = (index) => {
-    if (openItems.includes(index)) {
-      setOpenItems(openItems.filter((item) => item !== index));
-    } else {
-      setOpenItems([...openItems, index]);
-    }
-  };
+  return (
+    <div className="dialog-box-results">
+      <button className="close-icon" onClick={onClose}>✖</button>
+      <button className="back-button" onClick={onBack}>
+        <FaArrowLeft /> Volver
+      </button>
 
-  const CustomAccordion = ({ value, children, index }) => {
-    const isOpen = openItems.includes(index);
+      <h2>Resultados de Optimización</h2>
+      <p className="text-gray-600 mb-4">
+        Fecha: {new Date(results.date).toLocaleDateString()}
+      </p>
 
-    return (
-      <div className="mb-2 border rounded-md">
-        <button
-          className="flex items-center justify-between w-full py-2 px-4 font-semibold text-left bg-gray-100 hover:bg-gray-200 rounded-md"
-          onClick={() => toggleAccordionItem(index)}
-        >
-          {value}
-          <svg
-            className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+      <div className="flex flex-col gap-6 overflow-y-auto max-h-[70vh] p-4">
+        {results.plans.map((plan, index) => (
+          <div 
+            key={index}
+            className="bg-white rounded-lg shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            ></path>
-          </svg>
-        </button>
-        {isOpen && <div className="p-4">{children}</div>}
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">
+              Plan {index + 1}
+            </h3>
+
+            {plan.kpis ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Assignment Section */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-700 mb-3">Asignación</h4>
+                  <div className="space-y-2">
+                    {Object.entries(plan.kpis.assignment).map(([key, value]) => (
+                      <div key={key} className="flex justify-between items-center py-1 border-b border-gray-200">
+                        <span className="text-sm text-gray-600">{key}</span>
+                        <span className="font-medium text-gray-800">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Capacity Section */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-700 mb-3">Capacidad</h4>
+                  <div className="space-y-2">
+                    {Object.entries(plan.kpis.capacity).map(([key, value]) => (
+                      <div key={key} className="flex justify-between items-center py-1 border-b border-gray-200">
+                        <span className="text-sm text-gray-600">{key}</span>
+                        <span className="font-medium text-gray-800">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Connections Section */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-700 mb-3">Conexiones</h4>
+                  <div className="space-y-2">
+                    {Object.entries(plan.kpis.connections).map(([key, value]) => (
+                      <div key={key} className="flex justify-between items-center py-1 border-b border-gray-200">
+                        <span className="text-sm text-gray-600">{key}</span>
+                        <span className="font-medium text-gray-800">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Performance Section */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-700 mb-3">Rendimiento</h4>
+                  <div className="space-y-2">
+                    {Object.entries(plan.kpis.performance).map(([key, value]) => (
+                      <div key={key} className="flex justify-between items-center py-1 border-b border-gray-200">
+                        <span className="text-sm text-gray-600">{key}</span>
+                        <span className="font-medium text-gray-800">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-red-50 p-4 rounded-lg">
+                <h4 className="text-red-700 font-semibold mb-2">Error en la optimización</h4>
+                <p className="text-red-600">
+                  {plan.error || "No se pudo resolver el modelo para este plan."}
+                </p>
+                {plan.infeasible_file && (
+                  <p className="mt-2 text-sm text-red-500">
+                    Archivo generado: <code>{plan.infeasible_file}</code>
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-    );
-  };
-
-    return (
-        <div className="dialog-box-results">
-            <button className="close-icon" onClick={onClose}>
-                ✖
-            </button>
-            <button className="back-button" onClick={onBack}>
-                <FaArrowLeft /> Volver
-            </button>
-
-            <h2>Resultados de Optimización</h2>
-            <p>Fecha: {new Date(results.date).toLocaleDateString()}</p>
-
-            <div className="results-container">
-                {results.plans.map((plan, index) => (
-                    <CustomAccordion key={index} value={`Plan ${index + 1}`} index={index}>
-                        {plan.kpis ? (
-                            <div className="kpi-sections">
-                                <div className="kpi-section">
-                                    <h4>Asignación</h4>
-                                    <div className="kpi-grid">
-                                        {Object.entries(plan.kpis.assignment).map(([key, value]) => (
-                                            <div key={key} className="kpi-item">
-                                                <span className="kpi-label">{key}</span>
-                                                <span className="kpi-value">{value}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="kpi-section">
-                                    <h4>Capacidad</h4>
-                                    <div className="kpi-grid">
-                                        {Object.entries(plan.kpis.capacity).map(([key, value]) => (
-                                            <div key={key} className="kpi-item">
-                                                <span className="kpi-label">{key}</span>
-                                                <span className="kpi-value">{value}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="kpi-section">
-                                    <h4>Conexiones</h4>
-                                    <div className="kpi-grid">
-                                        {Object.entries(plan.kpis.connections).map(([key, value]) => (
-                                            <div key={key} className="kpi-item">
-                                                <span className="kpi-label">{key}</span>
-                                                <span className="kpi-value">{value}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="kpi-section">
-                                    <h4>Rendimiento</h4>
-                                    <div className="kpi-grid">
-                                        {Object.entries(plan.kpis.performance).map(([key, value]) => (
-                                            <div key={key} className="kpi-item">
-                                                <span className="kpi-label">{key}</span>
-                                                <span className="kpi-value">{value}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="kpi-section">
-                                <h4>Error en la optimización</h4>
-                                <p style={{ color: "red", marginTop: "10px" }}>
-                                    {plan.error || "No se pudo resolver el modelo para este plan."}
-                                </p>
-                                {plan.infeasible_file && (
-                                    <p>
-                                        Archivo generado: <code>{plan.infeasible_file}</code>
-                                    </p>
-                                )}
-                            </div>
-                        )}
-                    </CustomAccordion>
-                ))}
-            </div>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default OptimizationResults;
