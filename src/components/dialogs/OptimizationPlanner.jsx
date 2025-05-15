@@ -15,7 +15,7 @@ const createEmptyPlan = () => ({
   num_tails: null
 });
 
-const OptimizationPlanner = ({ selectedDate, onClose }) => {
+const OptimizationPlanner = ({ selectedDate, onClose, setView, setOptimizationData }) => {
   const [plans, setPlans] = useState([createEmptyPlan()]);
 
   const addPlan = () => {
@@ -39,6 +39,9 @@ const OptimizationPlanner = ({ selectedDate, onClose }) => {
       plans: plans
     };
 
+    onClose();
+    setView("results");
+
     try {
       const response = await fetch("http://127.0.0.1:5000/optimize_selected_day_new", {
         method: "POST",
@@ -49,17 +52,18 @@ const OptimizationPlanner = ({ selectedDate, onClose }) => {
       });
 
       const data = await response.json();
-      window.location.href = `/results?data=${encodeURIComponent(JSON.stringify(data))}`;
+      setOptimizationData(data);
     } catch (error) {
       console.error("Error optimizing:", error);
+      // Handle error state
     }
   };
 
   return (
     <div className="dialog-box-planner">
       <button className="close-icon" onClick={onClose}>✖</button>
-      <h2>Configurar Planes de Optimización</h2>
-      <p>Fecha seleccionada: {selectedDate.toLocaleDateString()}</p>
+      <h2>Configure Optimization Plans</h2>
+      <p>Selected date: {selectedDate.toLocaleDateString()}</p>
 
       <div className="plans-container">
         {plans.map((plan, index) => (
@@ -76,18 +80,18 @@ const OptimizationPlanner = ({ selectedDate, onClose }) => {
 
       <div className="planner-actions">
         <button className="add-plan-button" onClick={addPlan}>
-          <FaPlus /> Añadir Plan
+          <FaPlus /> Add Plan
         </button>
         <button
           className="optimize-button"
           onClick={handleOptimize}
           disabled={plans.length === 0}
         >
-          Optimizar
+          Optimize
         </button>
       </div>
     </div>
   );
 };
 
-export default OptimizationPlanner
+export default OptimizationPlanner;

@@ -7,7 +7,7 @@ import Settings from "../../pages/Settings";
 import Explain from "../../pages/Explain";
 import Results from "../../pages/Results";
 
-function Body({ view, setView }) {
+function Body({ view, setView, optimizationData }) {
   return (
     <main className="body-content">
       <AnimatePresence mode="wait">
@@ -23,11 +23,11 @@ function Body({ view, setView }) {
           {view === "info" && <Info />}
           {view === "settings" && <Settings />}
           {view === "explain" && <Explain />}
-          {view === "results" && <Results />}
+          {view === "results" && <Results optimizationData={optimizationData} />}
         </motion.div>
       </AnimatePresence>
     </main>
   );
 }
 
-export default Body
+export default Body;
