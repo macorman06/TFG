@@ -15,7 +15,7 @@ const createEmptyPlan = () => ({
   num_tails: null
 });
 
-const OptimizationPlanner = ({ selectedDate, onClose, setView, setOptimizationData }) => {
+const OptimizationPlanner = ({ selectedDate, onClose, setOptimizationData }) => {
   const [plans, setPlans] = useState([createEmptyPlan()]);
 
   const addPlan = () => {
@@ -39,8 +39,6 @@ const OptimizationPlanner = ({ selectedDate, onClose, setView, setOptimizationDa
       plans: plans
     };
 
-    onClose();  // Cerramos el popup
-
     try {
       const response = await fetch("http://127.0.0.1:5000/optimize_selected_day_new", {
         method: "POST",
@@ -51,7 +49,8 @@ const OptimizationPlanner = ({ selectedDate, onClose, setView, setOptimizationDa
       });
 
       const data = await response.json();
-      setOptimizationData(data);  // ⬅️ Aquí se guarda la respuesta para que Results.jsx la lea
+      setOptimizationData(data);
+      onClose();
     } catch (error) {
       console.error("Error optimizing:", error);
       alert("Hubo un error al optimizar. Revisa la consola.");

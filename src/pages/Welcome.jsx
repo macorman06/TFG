@@ -4,7 +4,7 @@ import Card from "../components/CardWelcome";
 import OptiDaysSelector from "../components/dialogs/OptiDaysSelector"; 
 import LoadData from "../components/dialogs/LoadData"; 
 
-function Welcome({ setView, setOptimizationData }) {
+function Welcome({ setView, setOptimizationData, optimizationData }) {
   const [showPopup, setShowPopup] = useState(null);
 
   return (
@@ -52,10 +52,11 @@ function Welcome({ setView, setOptimizationData }) {
             onClick={() => setShowPopup("optimize")}
         />
         <Card
-            icon={FaCog}
+            icon={FaChartBar}
             title="Resultados"
-            description="Una vez obtenida la solución, consultar KPIs"
-            onClick={() => setView("results")}
+            description="Consultar los resultados de la última optimización"
+            onClick={() => optimizationData && setView("results")}
+            className={!optimizationData ? "opacity-50 cursor-not-allowed" : ""}
         />
       </div>
 
@@ -68,8 +69,7 @@ function Welcome({ setView, setOptimizationData }) {
       {showPopup === "optimize" && (
         <div className="overlay">
           <OptiDaysSelector 
-            onClose={() => setShowPopup(null)} 
-            setView={setView}
+            onClose={() => setShowPopup(null)}
             setOptimizationData={setOptimizationData}
           />
         </div>
