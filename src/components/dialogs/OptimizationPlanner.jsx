@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import OptimizationPlanCard from "./OptimizationPlanCard";
+import { useToast } from "../../context/ToastContext";
 
 const createEmptyPlan = () => ({
   min_time_connection: 30,
@@ -17,6 +18,7 @@ const createEmptyPlan = () => ({
 
 const OptimizationPlanner = ({ selectedDate, onClose, setOptimizationData }) => {
   const [plans, setPlans] = useState([createEmptyPlan()]);
+  const { showToast } = useToast();
 
   const addPlan = () => {
     setPlans([...plans, createEmptyPlan()]);
@@ -39,6 +41,8 @@ const OptimizationPlanner = ({ selectedDate, onClose, setOptimizationData }) => 
       plans: plans
     };
 
+    showToast("Optimization in progress...", "info");
+
     try {
       const response = await fetch("http://127.0.0.1:5000/optimize_selected_day_new", {
         method: "POST",
@@ -50,10 +54,11 @@ const OptimizationPlanner = ({ selectedDate, onClose, setOptimizationData }) => 
 
       const data = await response.json();
       setOptimizationData(data);
+      showToast("Optimization completed successfully", "success");
       onClose();
     } catch (error) {
       console.error("Error optimizing:", error);
-      alert("Hubo un error al optimizar. Revisa la consola.");
+      showToast("Error during optimization", "error");
     }
   };
 
@@ -92,4 +97,4 @@ const OptimizationPlanner = ({ selectedDate, onClose, setOptimizationData }) => 
   );
 };
 
-export default OptimizationPlanner
+export default OptimizationPlanner;
