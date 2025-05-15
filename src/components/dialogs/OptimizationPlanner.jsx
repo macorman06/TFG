@@ -40,6 +40,7 @@ const OptimizationPlanner = ({ selectedDate, onClose, setView, setOptimizationDa
     };
 
     onClose();
+    setView("results");
 
     try {
       const response = await fetch("http://127.0.0.1:5000/optimize_selected_day_new", {
@@ -51,9 +52,10 @@ const OptimizationPlanner = ({ selectedDate, onClose, setView, setOptimizationDa
       });
 
       const data = await response.json();
+      setOptimizationData(data);
     } catch (error) {
       console.error("Error optimizing:", error);
-      // Handle error state
+      setOptimizationData({ error: "Failed to optimize flight schedule" });
     }
   };
 
@@ -91,5 +93,3 @@ const OptimizationPlanner = ({ selectedDate, onClose, setView, setOptimizationDa
     </div>
   );
 };
-
-export default OptimizationPlanner;

@@ -7,7 +7,7 @@ import Settings from "../../pages/Settings";
 import Explain from "../../pages/Explain";
 import Results from "../../pages/Results";
 
-function Body({ view, setView, optimizationData }) {
+function Body({ view, setView, optimizationData, setOptimizationData }) {
   return (
     <main className="body-content">
       <AnimatePresence mode="wait">
@@ -18,7 +18,7 @@ function Body({ view, setView, optimizationData }) {
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.4 }}
         >
-          {view === "welcome" && <Welcome setView={setView} />}
+          {view === "welcome" && <Welcome setView={setView} setOptimizationData={setOptimizationData} />}
           {view === "tool" && <Tool />}
           {view === "info" && <Info />}
           {view === "settings" && <Settings />}
