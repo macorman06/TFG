@@ -39,17 +39,23 @@ function Welcome({ setView, setOptimizationData }) {
         Uso de la herramienta
       </h3>
       <div className="cards-container">
-        <Card  
-          icon={FaUpload} 
-          title="Cargar Datos" 
-          description="Importa los horarios de vuelos y restricciones para optimizar la planificación."
-          onClick={() => setShowPopup("loadData")}
+        <Card
+            icon={FaUpload}
+            title="Cargar Datos"
+            description="Importa los horarios de vuelos y restricciones para optimizar la planificación."
+            onClick={() => setShowPopup("loadData")}
         />
-        <Card 
-          icon={FaCog} 
-          title="Optimizar Planificación" 
-          description="Ejecuta el modelo matemático en la API de Python y genera soluciones eficientes." 
-          onClick={() => setShowPopup("optimize")}
+        <Card
+            icon={FaCog}
+            title="Optimizar Planificación"
+            description="Ejecuta el modelo matemático en la API de Python y genera soluciones eficientes."
+            onClick={() => setShowPopup("optimize")}
+        />
+        <Card
+            icon={FaCog}
+            title="Resultados"
+            description="Una vez obtenida la solución, consultar KPIs"
+            onClick={() => setView("results")}
         />
       </div>
 

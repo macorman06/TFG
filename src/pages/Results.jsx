@@ -1,17 +1,17 @@
 import React from "react";
 
 function Results({ optimizationData }) {
-  if (!optimizationData) {
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white p-8 rounded-lg shadow-xl text-center">
-          <div className="text-2xl mb-4">🛫</div>
-          <p className="text-lg font-medium">Optimizing your flight schedule...</p>
-          <p className="text-sm text-gray-500 mt-2">This may take a few minutes</p>
-        </div>
-      </div>
-    );
-  }
+    if (!optimizationData) {
+        return (
+            <div className="flex items-center justify-center h-[calc(100vh-160px)] bg-white px-6">
+                <div className="bg-white p-8 rounded-lg shadow-xl text-center">
+                    <div className="text-2xl mb-4">🛫</div>
+                    <p className="text-lg font-medium">Optimizando tu planificación de vuelos...</p>
+                    <p className="text-sm text-gray-500 mt-2">Este proceso puede tardar unos minutos</p>
+                </div>
+            </div>
+        );
+    }
 
   if (optimizationData.error) {
     return (
