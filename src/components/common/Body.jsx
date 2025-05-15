@@ -18,7 +18,7 @@ function Body({ view, setView, optimizationData, setOptimizationData }) {
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.4 }}
         >
-          {view === "welcome" && <Welcome setView={setView} setOptimizationData={setOptimizationData} />}
+          {view === "welcome" && <Welcome setView={setView} optimizationData={optimizationData} setOptimizationData={setOptimizationData} />}
           {view === "tool" && <Tool />}
           {view === "info" && <Info />}
           {view === "settings" && <Settings />}

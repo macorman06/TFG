@@ -66,14 +66,18 @@ function Welcome({ setView, setOptimizationData, optimizationData }) {
         </div>
       )}
 
-      {showPopup === "optimize" && (
-        <div className="overlay">
-          <OptiDaysSelector 
-            onClose={() => setShowPopup(null)}
-            setOptimizationData={setOptimizationData}
-          />
-        </div>
-      )}
+        {showPopup === "optimize" && (
+            <div className="overlay">
+                <OptiDaysSelector
+                    onClose={() => setShowPopup(null)}
+                    setOptimizationData={(data) => {
+                        console.log("[OPTIMIZATION DATA RECEIVED]", data);  // 🔍 Log de la respuesta
+                        setOptimizationData(data);                           // Guardar en estado global
+                    }}
+                />
+            </div>
+        )}
+
     </div>
   );
 }

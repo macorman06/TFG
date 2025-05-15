@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import OptimizationPlanner from "./OptimizationPlanner";
 
-const OptiDaysSelector = ({ onClose }) => {
+const OptiDaysSelector = ({ onClose, setOptimizationData }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [availableDates, setAvailableDates] = useState([]);
   const [showPlanner, setShowPlanner] = useState(false);
@@ -36,6 +36,7 @@ const OptiDaysSelector = ({ onClose }) => {
       <OptimizationPlanner
         selectedDate={selectedDate}
         onClose={onClose}
+        setOptimizationData={setOptimizationData} // ✅ pásalo aquí
       />
     );
   }
