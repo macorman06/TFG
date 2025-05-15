@@ -93,3 +93,5 @@ const OptimizationPlanner = ({ selectedDate, onClose, setView, setOptimizationDa
     </div>
   );
 };
+
+export default OptimizationPlanner
